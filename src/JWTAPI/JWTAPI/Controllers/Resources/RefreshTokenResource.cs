@@ -10,6 +10,6 @@ namespace JWTAPI.Controllers.Resources
         [Required]
         [DataType(DataType.EmailAddress)]
         [StringLength(255)]
-        public string UserEmail { get; set; }
+        public string Email { get; set; }
     }
 }

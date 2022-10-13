@@ -46,7 +46,7 @@ namespace JWTAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            var response = await _authenticationService.RefreshTokenAsync(refreshTokenResource.Token, refreshTokenResource.UserEmail);
+            var response = await _authenticationService.RefreshTokenAsync(refreshTokenResource.Token, refreshTokenResource.Email);
             if(!response.Success)
             {
                 return BadRequest(response.Message);
