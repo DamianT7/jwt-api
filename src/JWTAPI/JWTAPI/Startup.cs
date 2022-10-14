@@ -48,7 +48,9 @@ namespace JWTAPI
 			var signingConfigurations = new SigningConfigurations(tokenOptions.Secret);
 			services.AddSingleton(signingConfigurations);
 
-			services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            services.AddHttpContextAccessor();
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 				.AddJwtBearer(jwtBearerOptions =>
 				{
 					jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters()
