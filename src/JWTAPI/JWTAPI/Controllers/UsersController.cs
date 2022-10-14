@@ -23,17 +23,13 @@ namespace JWTAPI.Controllers
         public async Task<IActionResult> CreateUserAsync([FromBody] UserCredentialsResource userCredentials)
         {
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
 
             var user = _mapper.Map<UserCredentialsResource, User>(userCredentials);
             
             var response = await _userService.CreateUserAsync(user, ApplicationRole.Common);
             if(!response.Success)
-            {
                 return BadRequest(response.Message);
-            }
 
             var userResource = _mapper.Map<User, UserResource>(response.User);
             return Ok(userResource);

@@ -23,15 +23,11 @@ namespace JWTAPI.Controllers
         public async Task<IActionResult> LoginAsync([FromBody] UserCredentialsResource userCredentials)
         {
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
 
             var response = await _authenticationService.CreateAccessTokenAsync(userCredentials.Email, userCredentials.Password);
             if(!response.Success)
-            {
                 return BadRequest(response.Message);
-            }
 
             var accessTokenResource = _mapper.Map<AccessToken, AccessTokenResource>(response.Token);
             return Ok(accessTokenResource);
@@ -42,15 +38,11 @@ namespace JWTAPI.Controllers
         public async Task<IActionResult> RefreshTokenAsync([FromBody] RefreshTokenResource refreshTokenResource)
         {
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
 
             var response = await _authenticationService.RefreshTokenAsync(refreshTokenResource.Token, refreshTokenResource.Email);
             if(!response.Success)
-            {
                 return BadRequest(response.Message);
-            }
            
             var tokenResource = _mapper.Map<AccessToken, AccessTokenResource>(response.Token);
             return Ok(tokenResource);
@@ -61,9 +53,7 @@ namespace JWTAPI.Controllers
         public IActionResult RevokeToken([FromBody] RevokeTokenResource resource)
         {
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
 
             _authenticationService.RevokeRefreshToken(resource.Token, resource.Email);
             return NoContent();
